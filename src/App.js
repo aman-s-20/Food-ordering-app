@@ -1,4 +1,4 @@
-import React from "react";
+import React,{lazy, Suspense} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -9,6 +9,14 @@ import Error from "./components/Error";
 import Cart from "./components/Cart";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu";
+
+
+
+// lazy import 
+const Instamart = lazy(()=>import('./components/Instamart'));
+// upon on Demand loading ->upon render -> suspended loading
+// because react want to render before the js load in browser
+// to handle this we use Suspense
 
 
 const AppLayout = () => {
@@ -46,6 +54,10 @@ const appRouter = createBrowserRouter([
       {
         path: '/restaurant/:resId',
         element: <RestaurantMenu/>
+      },
+      {
+        path: '/instamart',
+        element: <Suspense><Instamart/></Suspense>
       }
     ]
 
