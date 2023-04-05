@@ -2,22 +2,15 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { filterData } from "./utils/helper";
+import useOnline from "./utils/useOnline";
 
-
-function filterData(searchText, restaurants) {
-  // 8 restraunt list = > filtered  rest with "King"
-  const filterData = restaurants.filter((restaurant) =>
-    restaurant?.data?.name?.toLowerCase()?.includes(searchText.toLowerCase())
-  );
-
-  return filterData;
-}
 
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-
+  
   // empty dependency array => once after render
   // dep arry [searchText] => once after initial render + everytime after redern (my searchText changes)
   useEffect(() => {
@@ -36,9 +29,14 @@ const Body = () => {
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
+  
+   const isOnline = useOnline();
+   
+  if(!isOnline)return <h1>😑 seems to be offline </h1>;
+   
 
-  console.log("render");
-  <Shimmer/>
+
+
   // not render component (Early return)
   if (!allRestaurants) return null;
 

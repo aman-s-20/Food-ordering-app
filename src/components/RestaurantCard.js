@@ -16,4 +16,6 @@ const RestrauntCard = ({
   );
 };
 
-export default RestrauntCard;
+
+
+export default (RestrauntCard);
