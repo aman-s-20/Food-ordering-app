@@ -1,4 +1,4 @@
-import React,{lazy, Suspense} from "react";
+import React, { lazy, Suspense, useState,useContext } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -9,22 +9,33 @@ import Error from "./components/Error";
 import Cart from "./components/Cart";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu";
+import UserContext from './utils/UserContext';
 
 
 
 // lazy import 
-const Instamart = lazy(()=>import('./components/Instamart'));
+const Instamart = lazy(() => import('./components/Instamart'));
 // upon on Demand loading ->upon render -> suspended loading
 // because react want to render before the js load in browser
 // to handle this we use Suspense
 
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Aman Singh",
+    email: "amansingh30008@gmail.com"
+  })
   return (
     <>
-      <Header />
-      <Outlet/>
-      <Footer />
+      <UserContext.Provider
+        value={{
+          user: user,
+          setUser : setUser
+        }}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
     </>
   );
 };
@@ -32,32 +43,32 @@ const AppLayout = () => {
 const appRouter = createBrowserRouter([
   {
     path: '/',
-    element : <AppLayout />,
-    errorElement: <Error/>,
-    children:[
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
       {
         path: '/',
-        element : <Body />,
+        element: <Body />,
       },
       {
         path: '/About',
-        element : <About/>
+        element: <About />
       },
       {
         path: '/contact',
-        element : <Contactus/>
+        element: <Contactus />
       },
       {
         path: '/cart',
-        element : <Cart/>
+        element: <Cart />
       },
       {
         path: '/restaurant/:resId',
-        element: <RestaurantMenu/>
+        element: <RestaurantMenu />
       },
       {
         path: '/instamart',
-        element: <Suspense><Instamart/></Suspense>
+        element: <Suspense><Instamart /></Suspense>
       }
     ]
 
@@ -67,4 +78,4 @@ const appRouter = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<RouterProvider router ={appRouter} />);
+root.render(<RouterProvider router={appRouter} />);

@@ -1,16 +1,17 @@
 // import { restaurantList } from "../contants";
 import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Shimmer from "./Shimmer";
-import { filterData } from "./utils/helper";
-import useOnline from "./utils/useOnline";
+import { filterData } from "../utils/helper";
+import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 
 
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-  
+  const {user,setUser} = useContext(UserContext);
   // empty dependency array => once after render
   // dep arry [searchText] => once after initial render + everytime after redern (my searchText changes)
   useEffect(() => {
@@ -57,6 +58,11 @@ const Body = () => {
             setSearchText(e.target.value);
           }}
         />
+        <input value = {user.name} onChange={
+          (e)=>setUser({
+          name : e.target.value,
+          email : "new email"
+        })}></input>
         <button 
           className="bg-purple-900 hover:bg-purple-300 rounded-md text-white py-2 px-2"
           onClick={() => {
