@@ -4,14 +4,14 @@ import { useState, useEffect,useContext } from "react";
 import Shimmer from "./Shimmer";
 import { filterData } from "../utils/helper";
 import useOnline from "../utils/useOnline";
-import UserContext from "../utils/UserContext";
+import userContext from "../utils/userContext";
 
 
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const {user,setUser} = useContext(UserContext);
+  const {user,setUser} = useContext(userContext);
   // empty dependency array => once after render
   // dep arry [searchText] => once after initial render + everytime after redern (my searchText changes)
   useEffect(() => {

@@ -9,7 +9,7 @@ import Error from "./components/Error";
 import Cart from "./components/Cart";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu";
-import UserContext from './utils/UserContext';
+import userContext from './utils/userContext';
 
 
 
@@ -27,7 +27,7 @@ const AppLayout = () => {
   })
   return (
     <>
-      <UserContext.Provider
+      <userContext.Provider
         value={{
           user: user,
           setUser : setUser
@@ -35,7 +35,7 @@ const AppLayout = () => {
         <Header />
         <Outlet />
         <Footer />
-      </UserContext.Provider>
+      </userContext.Provider>
     </>
   );
 };

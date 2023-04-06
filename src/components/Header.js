@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { LOGO } from "../contants";
-import UserContext from "../utils/UserContext";
+import userContext from "../utils/userContext";
 
 const Title = () => (
   <a href="/">
@@ -16,7 +16,7 @@ const Title = () => (
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const {user, setUser} = useContext(UserContext);
+  const {user, setUser} = useContext(userContext);
   return (
     <div className="flex justify-between bg-pink-200 shadow-lg">
       <Title />
